@@ -1,0 +1,18 @@
+# Yeo2011 7 networks scouts (one per line)
+# Empty lines and lines starting with # are ignored.
+
+1 L
+1 R
+2 L
+2 R
+3 L
+3 R
+4 L
+4 R
+5 L
+5 R
+6 L
+6 R
+7 L
+7 R
+FP2
