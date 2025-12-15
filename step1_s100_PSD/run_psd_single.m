@@ -16,7 +16,6 @@
 % =========================================================================
 
 try
-    % ===== 输入来自 sbatch 环境变量 =====
     bstCode = getenv('BST_CODE');
     bstDB   = getenv('BST_DB');
     sFile   = getenv('SFILE');
@@ -26,12 +25,10 @@ try
     if isempty(bstCode),error('Env BST_CODE is empty.');end
     addpath(bstCode);
 
-    % ===== 以完全无界面模式启动；首次启动避免交互 =====
     if ~brainstorm('status')
         brainstorm server local;
     end
 
-    % ===== 正确加载你的数据库根 + 选择协议（官方推荐）=====
     if isempty(bstDB), error('Env BST_DB is empty.'); end
     db_import(bstDB);
     if isempty(prot), error('Env BST_PROTOCOL is empty.'); end
@@ -41,7 +38,6 @@ try
     end
     gui_brainstorm('SetCurrentProtocol', iProt);
 
-    % ===== 健壮性检查：当前协议必须有效，且能解析 sFile =====
     Pinfo = bst_get('ProtocolInfo');
     assert(isstruct(Pinfo) && ~isempty(Pinfo.STUDIES), 'No current protocol selected.');
 
@@ -60,7 +56,6 @@ try
     end
     scoutNames = read_scout_list(scoutsTxt);
 
-    % ===== 开始流程 =====
     bst_report('Start', sFile);
 
     sOut = bst_process('CallProcess','process_psd', sFile, [], ...
